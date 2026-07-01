@@ -13,8 +13,9 @@ El objetivo principal fue crear a **Menti**, un asistente que no solo sea un rec
 | :--- | :--- |
 | **Frontend** | React, Vite, TypeScript, CSS Moderno, GSAP (GreenSock Animation Platform) |
 | **Renderizado** | React Markdown (procesamiento limpio de textos devueltos por la IA) |
-| **Orquestación** | n8n (Flujos lógicos, agentes autónomos y memoria de sesión) |
-| **IA & Lenguaje** | LangChain.js, OpenAI / Google Gemini (según configuración de nodo) |
+| **Orquestación** | n8n (Flujos lógicos, agentes autónomos avanzados y memoria de sesión) |
+| **IA & Lenguaje** | Cohere Chat Model (Modelo `command-r-plus` para la generación avanzada de respuestas) |
+| **Embeddings** | Cohere Embeddings (Procesamiento y vectorización multilingüe para el contexto RAG) |
 | **Base Vectorial** | Neon Serverless PostgreSQL (con extensión `pgvector` para el almacén RAG) |
 | **Entorno Local** | Node.js (Servidor de desarrollo acelerado por Vite en puerto 5173) |
 
@@ -22,10 +23,12 @@ El objetivo principal fue crear a **Menti**, un asistente que no solo sea un rec
 * **Recuperación Aumentada (RAG):** Conexión nativa a la base de datos vectorial para indexar y consultar dinámicamente los documentos de políticas de admisión, ausencias, aranceles y WhatsApp del consultorio.
 * **UX Premium con GSAP:** Coreografía elástica en el Lobby para la eclosión orgánica del imagotipo y la transición limpia hacia el panel de mensajes.
 * **Foco Automático e Interactividad:** Retorno inmediato del enfoque (`focus`) al input de texto apenas el asistente finaliza la generación de respuesta, logrando una conversación continua.
-* **Spinner Elástico Personalizado:** Indicador de carga inspirado en los patrones fluidos de Gemini, desarrollado mediante `@keyframes` puras en CSS para mejorar la experiencia de espera (*perceived performance*).
+* **Spinner Elástico Personalizado:** Indicador de carga desarrollado mediante `@keyframes` puras en CSS para mejorar la experiencia de espera (*perceived performance*).
 
 ## 🏗️ Arquitectura del Flujo (n8n)
 La solución utiliza una **Cadena de Retorno (Retrieval QA Chain)** orquestada de forma visual en n8n. El agente recibe la duda del paciente, extrae los fragmentos contextuales (*chunks*) pertinentes de la base de datos en Neon, y genera una respuesta limpia libre de asteriscos crudos o alucinaciones.
+
+<img src="public/Workflow Mentis - Chatbot RAG.png" width="900" alt="Workflow Mentis - Chatbot RAG">
 
 ## 📂 Estructura del Repositorio
 * `/src`: Código fuente del frontend (Componentes de chat, lógica core de React y estilos).
