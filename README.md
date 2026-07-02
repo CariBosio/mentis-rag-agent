@@ -40,6 +40,9 @@ La solución utiliza una **Cadena de Retorno (Retrieval QA Chain)** orquestada d
 * **Fluidez Estructural:** Mantener el scroll perfectamente encapsulado en el área de conversación, logrando que la barra lateral y la cabecera queden fijas y estables.
 * **Control de Hooks en Renderizado Condicional:** Organización estricta de los hooks de React y efectos de GSAP para evitar errores en consola durante los estados de carga de la IA.
 * **Máscaras de Profundidad:** Aplicación de propiedades de difuminado (`mask-image`) en los bordes del chat para evitar cortes bruscos de avatares contra el encabezado.
+* **Migración de Infraestructura RAG en la Nube:** Ante las restricciones de memoria del servidor inicial (Railway), se lideró la migración completa del backend de n8n hacia Hugging Face Spaces. Esto implicó la reconfiguración y el aprovisionamiento de cero de las variables de entorno, credenciales de APIs (Cohere) y la persistencia de datos vectoriales (Neon/PostgreSQL) en un nuevo entorno virtualizado.
+* **Sincronización de Entornos y Gestión de Caché (Vite + Vercel):** Resolución de un conflicto crítico de persistencia de variables en el Frontend (`CORS / Failed to fetch`). El desafío consistió en depurar el ciclo de vida del *Build* de Vite y el almacenamiento en caché de Vercel, forzando compilaciones limpias (*Clear Cache and Deploy*) para purgar variables residuales e inyectar dinámicamente los nuevos endpoints de producción.
+* **Seguridad y Desacoplamiento de Credenciales (Git/GitHub):** Saneamiento del árbol de Git mediante el uso de comandos avanzados de la terminal (`git rm --cached`) para desvincular archivos de entorno (`.env`) históricos que persistían de forma invisible en el repositorio, garantizando el cumplimiento de las buenas prácticas de seguridad e integridad del código.
 
 ## 📽️ Demo Visual
 
