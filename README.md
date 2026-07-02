@@ -41,8 +41,12 @@ La solución utiliza una **Cadena de Retorno (Retrieval QA Chain)** orquestada d
 * **Control de Hooks en Renderizado Condicional:** Organización estricta de los hooks de React y efectos de GSAP para evitar errores en consola durante los estados de carga de la IA.
 * **Máscaras de Profundidad:** Aplicación de propiedades de difuminado (`mask-image`) en los bordes del chat para evitar cortes bruscos de avatares contra el encabezado.
 * **Migración de Infraestructura RAG en la Nube:** Ante las restricciones de memoria del servidor inicial (Railway), se lideró la migración completa del backend de n8n hacia Hugging Face Spaces. Esto implicó la reconfiguración y el aprovisionamiento de cero de las variables de entorno, credenciales de APIs (Cohere) y la persistencia de datos vectoriales (Neon/PostgreSQL) en un nuevo entorno virtualizado.
+* **Pipeline de Ingestión Automatizada (ETL RAG) con Pastebin:** Diseño de un flujo secundario en n8n para la vectorización y normalización de las políticas del consultorio. El proceso consume de manera eficiente un endpoint plano en Pastebin (`/raw/`) simulando una API externa a través de un nodo *HTTP Request*, segmenta el contenido con un *Default Data Loader*, genera los vectores con los modelos de embeddings de *Cohere* y los almacena de forma estructurada en la base de datos vectorial de *Postgres (PGVector)* dentro de Neon.
+
+<img src="public/Workflow Ingestión de Políticas RAG.png" width="900" alt="Workflow Ingestión de Políticas RAG">
+
 * **Sincronización de Entornos y Gestión de Caché (Vite + Vercel):** Resolución de un conflicto crítico de persistencia de variables en el Frontend (`CORS / Failed to fetch`). El desafío consistió en depurar el ciclo de vida del *Build* de Vite y el almacenamiento en caché de Vercel, forzando compilaciones limpias (*Clear Cache and Deploy*) para purgar variables residuales e inyectar dinámicamente los nuevos endpoints de producción.
-* **Seguridad y Desacoplamiento de Credenciales (Git/GitHub):** Saneamiento del árbol de Git mediante el uso de comandos avanzados de la terminal (`git rm --cached`) para desvincular archivos de entorno (`.env`) históricos que persistían de forma invisible en el repositorio, garantizando el cumplimiento de las buenas prácticas de seguridad e integridad del código.
+* **Seguridad y Desacoplamiento de Credenciales (Git/GitHub):** Saneamiento del árbol de Git mediante el uso de comandos avanzados de la terminal (`git rm --cached`) para desvincular archivos de entorno (`.env`) históricos que persistían de forma invisible en el repositorio, galarantizando el cumplimiento de las buenas prácticas de seguridad e integridad del código.
 
 ## 📽️ Demo Visual
 
