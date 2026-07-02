@@ -1,6 +1,6 @@
 // URL local típica de n8n para pruebas de Webhooks en desarrollo
 // Cambiá la URL por la de producción fija:
-const N8N_WEBHOOK_URL = "https://n8n-production-2cc1.up.railway.app/webhook/mentis-chat";
+const N8N_WEBHOOK_URL = import.meta.env.VITE_N8N_WEBHOOK_URL;
 
 export const initializeRAGStore = async (): Promise<void> => {
   // Cumplimos con la carga inicial indicando que la base vectorial en Neon ya está lista en el backend
