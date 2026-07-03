@@ -1,5 +1,9 @@
 /* Dejamos todo oculto al inicio. GSAP se encargará de mostrarlos */
-#letter-m, #brain, #leaf, #slogan, #mentis > g {
+#letter-m, 
+#brain, 
+#leaf, 
+#slogan, 
+#mentis > g {
   opacity: 0;
 }
 

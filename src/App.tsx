@@ -5,7 +5,8 @@ import ReactMarkdown from "react-markdown";
 import Lenis from "lenis";
 import "./App.css";
 import MentisImagotipo from "./components/MentisImagotipo";
-import mentisLogo from "/Imagotipo_Mentis_vectorize.svg";
+import MentisIsotipo from "./components/MentisIsotipo";
+import mentisLogo from "/Imagotipo_Mentis_static.svg";
 import mentisAvatar from "/Avatar.png";
 
 interface Message {
@@ -21,6 +22,7 @@ function App() {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [agentTyping, setAgentTyping] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   // Referencias para elementos del DOM
   const welcomeRef = useRef<HTMLDivElement>(null);
@@ -31,6 +33,7 @@ function App() {
   // Referencias para los contenedores del logo (Origen y Destino)
   const welcomeLogoRef = useRef<HTMLDivElement>(null);
   const sidebarLogoRef = useRef<HTMLImageElement>(null); // Cambiado a HTMLImageElement
+  const mobileLogoRef = useRef<HTMLImageElement>(null);
 
   // Inicialización global de Lenis (Smooth Scroll)
   useEffect(() => {
@@ -54,7 +57,7 @@ function App() {
       setMessages([
         {
           sender: "menti",
-          text: "¡Hola! Soy Menti, tu asistente simulado. ¿Qué duda tenés sobre el consultorio de la Lic. Carina Bosio?",
+          text: "¡Hola! Soy Menti, tu asistente. ¿Qué duda tenés sobre el consultorio de la Lic. Carina Bosio?",
         },
       ]);
     });
@@ -85,11 +88,13 @@ function App() {
   }, [agentTyping, currentScreen]);
 
   // 🎬 COREOGRAFÍA FLUIDA CON TU IDEA (Ocupando el espacio desde el inicio)
+// 🎬 COREOGRAFÍA FLUIDA CORREGIDA (Cross-fade sincronizado y ocultamiento inicial)
   useEffect(() => {
     if (!loading) {
-      // 1. Configuramos el estado inicial de los elementos
+      // 1. 🎯 CORRECCIÓN 1: Ocultamos AMBOS logos fijos al arrancar para evitar fugas en mobile
       gsap.set(chatLayoutRef.current, { opacity: 0, y: 20 });
-      gsap.set(sidebarLogoRef.current, { opacity: 0 }); // La imagen fija arranca oculta pero ocupa espacio
+      gsap.set(sidebarLogoRef.current, { opacity: 0 });
+      gsap.set(mobileLogoRef.current, { opacity: 0 }); 
 
       const mainTimeline = gsap.timeline();
 
@@ -100,7 +105,7 @@ function App() {
         { opacity: 1, scale: 1, y: 0, duration: 1.2, ease: "power4.out" },
       );
 
-      // 2. Tiempo de espera (3 segundos) para disfrutar la animación SVG
+      // Tiempo de espera para disfrutar la animación SVG inicial antes del viaje
       mainTimeline.to({}, { duration: 6.0 });
 
       // 3. 🚀 Vuelo dinámico usando la posición real de la imagen oculta
@@ -111,13 +116,22 @@ function App() {
           onComplete: () => {
             if (!welcomeLogoRef.current || !sidebarLogoRef.current) return;
 
-            // Medimos el logo en el centro y la imagen estática oculta en la barra lateral
-            const first = welcomeLogoRef.current.getBoundingClientRect();
-            const last = sidebarLogoRef.current.getBoundingClientRect();
+            // 🧠 DETECCIÓN EN TIEMPO REAL: Evaluamos si la pantalla es mobile (< 768px)
+            const isMobile = window.innerWidth <= 768;
 
-            // Calculamos las distancias métricas perfectas en X e Y
+            // Si es mobile, el objetivo métrico es el logo de la cabecera; si es escritorio, la barra lateral
+            const targetLogo = isMobile
+              ? mobileLogoRef.current
+              : sidebarLogoRef.current;
+            if (!targetLogo) return;
+
+            // Medimos el logo en el centro (origen) y el logo destino real en la pantalla
+            const first = welcomeLogoRef.current.getBoundingClientRect();
+            const last = targetLogo.getBoundingClientRect();
+
+            // Calculamos las distancias métricas perfectas en X e Y adaptadas al entorno
             const xDelta = last.left - first.left + 0.5;
-            const yDelta = last.top - first.top - 19.5;
+            const yDelta = last.top - first.top - 20;
 
             // Calculamos la escala basada en el ancho real de destino
             const scaleDelta = last.width / first.width;
@@ -151,7 +165,7 @@ function App() {
               "viaje",
             );
 
-            // 3. El logo viaja al 100% de opacidad y SE QUEDA CLAVADO en su posición final
+            // 3. El logo viaja de forma fluida hacia el destino calculado
             flightTl.to(
               welcomeLogoRef.current,
               {
@@ -165,27 +179,25 @@ function App() {
               "viaje",
             );
 
-            // 4. 🎯 Esperamos que el logo se asiente por completo y quede 100% estático (a los 1.25s) para iniciar el cross-fade
-            // MentisImagotipo pasa de opacity 1 a 0 en 0.4 segundos
+            // 4. 🎯 CORRECCIÓN 2: Cross-fade impecable justo cuando termina el viaje (posición "viaje+=1.1")
             flightTl.to(
               welcomeLogoRef.current,
               {
                 opacity: 0,
-                duration: 0.4,
+                duration: 0.3,
                 ease: "power1.inOut",
               },
-              "viaje+=1.25",
+              "viaje+=1.1", // Sincronizado exacto al fin del trayecto de 1.1s
             );
 
-            // mentisLogo pasa de opacity 0 a 1 en los mismos 0.4 segundos
             flightTl.to(
-              sidebarLogoRef.current,
+              targetLogo,
               {
                 opacity: 1,
-                duration: 0.4,
+                duration: 0.3,
                 ease: "power1.inOut",
               },
-              "viaje+=1.25",
+              "viaje+=1.1", // Prende el logo destino real en simultáneo
             );
           },
         },
@@ -211,7 +223,9 @@ function App() {
   if (loading) {
     return (
       <div className="loader-container">
-        <div className="pulse-loader">🧠</div>
+        <div className="pulse-loader">
+          {/* <MentisIsotipo /> */}
+        </div>
         <h2>Conectando con los módulos de Menti...</h2>
       </div>
     );
@@ -235,17 +249,17 @@ function App() {
 
       {/* 2. DASHBOARD / CHATROOM PRINCIPAL */}
       <div
-        className="dashboard-layout"
+        className={`dashboard-layout ${menuOpen ? "menu-active" : ""}`}
         ref={chatLayoutRef}
         style={{
-          display: "grid",
           opacity: currentScreen === "chat" ? 1 : 0,
         }}
       >
+        {/* Agregamos una máscara de fondo sutil para cerrar el menú mobile al hacer clic afuera */}
+        <div className="sidebar-overlay" onClick={() => setMenuOpen(false)} />
+
         <aside className="sidebar-placeholder">
           <div className="sidebar-brand-area">
-            {/* 🎯 Tu idea: La imagen ocupa el espacio físico desde el inicio para que la barra lateral 
-               tenga sus dimensiones correctas desde el primer milisegundo */}
             <img
               ref={sidebarLogoRef}
               src={mentisLogo}
@@ -255,7 +269,11 @@ function App() {
             />
           </div>
           <nav className="sidebar-nav">
-            <a href="#" className="nav-item active">
+            <a
+              href="#"
+              className="nav-item active"
+              onClick={() => setMenuOpen(false)}
+            >
               💬 Asistente IA
             </a>
             <a href="#" className="nav-item disabled">
@@ -272,10 +290,29 @@ function App() {
 
         <main className="chat-main-area">
           <header className="chat-view-header">
-            <div>
+            {/* 🎯 LOGO RESPONSIVE: Visible solo en pantallas mobile a través de CSS */}
+            <img
+              ref={mobileLogoRef}
+              src={mentisLogo}
+              alt="Logo Mentis Mobile"
+              className="mobile-header-logo"
+            />
+
+            <div className="header-info-group">
               <h3>Menti Agent v1.0</h3>
               <span className="status-indicator">En línea</span>
             </div>
+
+            {/* 🍔 BOTÓN HAMBURGUESA: Aparece y colapsa mediante Flexbox nativo */}
+            <button
+              className={`hamburger-menu-btn ${menuOpen ? "open" : ""}`}
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label="Abrir menú"
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
           </header>
 
           <div className="messages-container">
