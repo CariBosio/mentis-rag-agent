@@ -5,7 +5,6 @@ import ReactMarkdown from "react-markdown";
 import Lenis from "lenis";
 import "./App.css";
 import MentisImagotipo from "./components/MentisImagotipo";
-import MentisIsotipo from "./components/MentisIsotipo";
 import mentisLogo from "/Imagotipo_Mentis_static.svg";
 import mentisAvatar from "/Avatar.png";
 
