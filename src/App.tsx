@@ -131,7 +131,7 @@ function App() {
 
             // Calculamos las distancias métricas perfectas en X e Y adaptadas al entorno
             const xDelta = last.left - first.left + 0.5;
-            const yDelta = last.top - first.top - 20;
+            const yDelta = last.top - first.top - 19.5;
 
             // Calculamos la escala basada en el ancho real de destino
             const scaleDelta = last.width / first.width;
