@@ -6,7 +6,11 @@ Asistente virtual autónomo diseñado para la autogestión de información, encu
 ## 🚀 Acerca del Proyecto
 Mentis nació como un desafío técnico para resolver una necesidad real del ámbito clínico: optimizar la comunicación de normativas, horarios y encuadres psicoterapéuticos con los pacientes. Este proyecto me permitió profundizar la integración de mi formación en **Psicología con el desarrollo Frontend y la Inteligencia Artificial**.
 
-El objetivo principal fue crear a **Menti**, un asistente que no solo sea un recuperador de datos frío, sino una interfaz que mantenga la calidez y el respeto por el encuadre profesional. Incorpora una UX fluida mediante animaciones dinámicas que reducen la fricción cognitiva del usuario durante la espera de respuestas complejas.
+El objetivo principal fue crear a **Menti**, un asistente que no solo sea un recuperador de datos frío, sino una solución flexible y **omnicanal**. El sistema permite a los usuarios interactuar de forma indistinta a través de dos frentes integrados al mismo "cerebro" en la nube:
+* **Una Plataforma Web Moderna (React):** Ofrece una interfaz inmersiva, interactiva y responsiva ideal para consultas desde el sitio del consultorio.
+* **Un Canal Automatizado de Telegram:** Pensado para la mensajería instantánea del paciente desde su celular con una accesibilidad inmediata.
+
+Toda la lógica de Menti mantiene la calidez y el respeto por el encuadre profesional, incorporando una UX fluida mediante animaciones dinámicas que reducen la fricción cognitiva del usuario durante la espera de respuestas complejas.
 
 ## 🛠️ Stack Tecnológico
 | **Componente** | **Tecnologías y Librerías Utilizadas** |
@@ -21,6 +25,8 @@ El objetivo principal fue crear a **Menti**, un asistente que no solo sea un rec
 
 ## 🧠 Características Principales
 * **Recuperación Aumentada (RAG):** Conexión nativa a la base de datos vectorial para indexar y consultar dinámicamente los documentos de políticas de admisión, ausencias, aranceles y WhatsApp del consultorio.
+* **Cerebro Unificado Omnicanal:** Arquitectura centralizada que permite abastecer de manera simultánea a la plataforma Web y al bot de Telegram desde un mismo Agente de IA, garantizando consistencia en las respuestas del consultorio.
+* **Frontend 100% Responsivo:** Interfaz de usuario diseñada bajo estándares modernos de adaptabilidad, ofreciendo una experiencia fluida y optimizada tanto en dispositivos móviles (smartphones) como en escritorios de escritorio.
 * **UX Premium con GSAP:** Coreografía elástica en el Lobby para la eclosión orgánica del imagotipo y la transición limpia hacia el panel de mensajes.
 * **Foco Automático e Interactividad:** Retorno inmediato del enfoque (`focus`) al input de texto apenas el asistente finaliza la generación de respuesta, logrando una conversación continua.
 * **Spinner Elástico Personalizado:** Indicador de carga desarrollado mediante `@keyframes` puras en CSS para mejorar la experiencia de espera (*perceived performance*).
@@ -28,7 +34,7 @@ El objetivo principal fue crear a **Menti**, un asistente que no solo sea un rec
 ## 🏗️ Arquitectura del Flujo (n8n)
 La solución utiliza una **Cadena de Retorno (Retrieval QA Chain)** orquestada de forma visual en n8n. El agente recibe la duda del paciente, extrae los fragmentos contextuales (*chunks*) pertinentes de la base de datos en Neon, y genera una respuesta limpia libre de asteriscos crudos o alucinaciones.
 
-<img src="public/Workflow Mentis - Chatbot RAG.png" width="900" alt="Workflow Mentis - Chatbot RAG">
+<img src="public/Workflow Mentis - Chatbot RAG.png" width="900" alt="Workflow n8n Mentis - Chatbot RAG">
 
 ## 📂 Estructura del Repositorio
 * `/src`: Código fuente del frontend (Componentes de chat, lógica core de React y estilos).
@@ -37,16 +43,16 @@ La solución utiliza una **Cadena de Retorno (Retrieval QA Chain)** orquestada d
 * `/public/docs`: Base de conocimientos que alimenta el RAG (`politicas_mentis.txt`, manuales PDF).
 
 ## 💡 Desafíos Técnicos
-* **Fluidez Estructural:** Mantener el scroll perfectamente encapsulado en el área de conversación, logrando que la barra lateral y la cabecera queden fijas y estables.
-* **Control de Hooks en Renderizado Condicional:** Organización estricta de los hooks de React y efectos de GSAP para evitar errores en consola durante los estados de carga de la IA.
-* **Máscaras de Profundidad:** Aplicación de propiedades de difuminado (`mask-image`) en los bordes del chat para evitar cortes bruscos de avatares contra el encabezado.
+* **Ruteo Condicional Lógico en Entornos Stateless:** Uno de los mayores retos fue diseñar un nodo *Switch* omnicanal que no se rompiera debido a la limpieza de variables que hace n8n entre ejecuciones alternativas. Se resolvió implementando lógica condicional avanzada mediante funciones nativas de validación estática (`$if` junto con el método `.isExecuted`), logrando evaluar con éxito qué Webhook inició el hilo sin clavar errores críticos por "nodos no ejecutados".
+* **Estandarización de Estructuras de Datos Heterogéneas:** Sincronizar la entrada de datos de Telegram (que maneja objetos de chat nativos) con los JSON estructurados enviados desde la aplicación en React requirió un mapeo minucioso mediante nodos *Edit Fields*. Se encapsularon los parámetros de entrada (`chatInput`, `sessionId` y `channel`) bajo la misma jerarquía del objeto `body` para homogeneizar el consumo del Agente de IA.
+* **Pipeline de Ingestión Automatizada (ETL RAG):** Diseño y ejecución de un flujo secundario en n8n especializado en la inyección masiva de documentos hacia la base de datos en Neon. El proceso consume mediante peticiones HTTP un endpoint plano de configuración externa (Pastebin `/raw/`), procesa y segmenta jerárquicamente el contenido usando un *Default Data Loader*, genera los vectores semánticos con *Cohere Embeddings* y los almacena de forma estructurada en las tablas de *PostgreSQL (PGVector)*.
+
+<img src="public/Workflow Mentis - Inyección de Documentos.png" width="900" alt="Workflow Ingestión de Políticas RAG">
+
 * **Migración de Infraestructura RAG en la Nube:** Ante las restricciones de memoria del servidor inicial (Railway), se lideró la migración completa del backend de n8n hacia Hugging Face Spaces. Esto implicó la reconfiguración y el aprovisionamiento de cero de las variables de entorno, credenciales de APIs (Cohere) y la persistencia de datos vectoriales (Neon/PostgreSQL) en un nuevo entorno virtualizado.
-* **Pipeline de Ingestión Automatizada (ETL RAG) con Pastebin:** Diseño de un flujo secundario en n8n para la vectorización y normalización de las políticas del consultorio. El proceso consume de manera eficiente un endpoint plano en Pastebin (`/raw/`) simulando una API externa a través de un nodo *HTTP Request*, segmenta el contenido con un *Default Data Loader*, genera los vectores con los modelos de embeddings de *Cohere* y los almacena de forma estructurada en la base de datos vectorial de *Postgres (PGVector)* dentro de Neon.
-
-<img src="public/Workflow Ingestión de Políticas RAG.png" width="900" alt="Workflow Ingestión de Políticas RAG">
-
-* **Sincronización de Entornos y Gestión de Caché (Vite + Vercel):** Resolución de un conflicto crítico de persistencia de variables en el Frontend (`CORS / Failed to fetch`). El desafío consistió en depurar el ciclo de vida del *Build* de Vite y el almacenamiento en caché de Vercel, forzando compilaciones limpias (*Clear Cache and Deploy*) para purgar variables residuales e inyectar dinámicamente los nuevos endpoints de producción.
-* **Seguridad y Desacoplamiento de Credenciales (Git/GitHub):** Saneamiento del árbol de Git mediante el uso de comandos avanzados de la terminal (`git rm --cached`) para desvincular archivos de entorno (`.env`) históricos que persistían de forma invisible en el repositorio, galarantizando el cumplimiento de las buenas prácticas de seguridad e integridad del código.
+* **Fluidez Estructural y Control de Hooks:** Mantener el scroll perfectamente encapsulado en el área de conversación, logrando que la barra lateral y la cabecera queden fijas. Organización estricta de los hooks de React y efectos de GSAP para evitar errores en consola durante los estados de carga de la IA.
+* **Sincronización de Entornos (Vite + Vercel):** Resolución de conflictos de caché e inyección dinámica de endpoints mediante la purga y recompilación limpia de variables de entorno en producción.
+* **Seguridad de Credenciales (Git/GitHub):** Saneamiento profundo del árbol de Git mediante comandos avanzados de terminal (`git rm --cached`) para remover históricos de archivos `.env` que persistían de forma invisible en el repositorio.
 
 ## 📽️ Demo Visual
 
