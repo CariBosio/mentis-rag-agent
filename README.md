@@ -1,7 +1,7 @@
 # Mentis: Agente Clínico Inteligente RAG
 Asistente virtual autónomo diseñado para la autogestión de información, encuadre y políticas del consultorio psicológico de la **Lic. Carina Bosio**.
 
-<img src="public/Isotipo_Mentis.png" width="180" alt="Avatar de Menti">
+<img src="public/Isotipo_Mentis.svg" width="180" alt="Avatar de Menti">
 
 ## 🚀 Acerca del Proyecto
 Mentis nació como un desafío técnico para resolver una necesidad real del ámbito clínico: optimizar la comunicación de normativas, horarios y encuadres psicoterapéuticos con los pacientes. Este proyecto me permitió profundizar la integración de mi formación en **Psicología con el desarrollo Frontend y la Inteligencia Artificial**.
