@@ -50,6 +50,26 @@ function App() {
     return () => lenis.destroy();
   }, []);
 
+  // 📱 TRUCO MAESTRO: Ajustar altura real libre del teclado en móviles
+  useEffect(() => {
+    if (!window.visualViewport) return;
+
+    const handleResize = () => {
+      // Mide el alto real disponible libre del teclado virtual
+      const currentHeight = window.visualViewport.height;
+      document.documentElement.style.setProperty('--viewport-height', `${currentHeight}px`);
+    };
+
+    window.visualViewport.addEventListener('resize', handleResize);
+    window.visualViewport.addEventListener('scroll', handleResize); // Evita desfases en iOS
+    handleResize(); // Ejecución inicial
+
+    return () => {
+      window.visualViewport?.removeEventListener('resize', handleResize);
+      window.visualViewport?.removeEventListener('scroll', handleResize);
+    };
+  }, []);
+
   // Inicialización del RAG Store
   useEffect(() => {
     initializeRAGStore().then(() => {
@@ -79,13 +99,19 @@ function App() {
   }, [messages, agentTyping]);
 
   // Foco del Input
-  useEffect(() => {
-    if (!agentTyping && currentScreen === "chat" && inputRef.current) {
+ useEffect(() => {
+  if (!agentTyping && currentScreen === "chat" && inputRef.current) {
+    // 📱 DETECCIÓN DE MOBILE: Evaluamos si es una pantalla táctil o menor a 768px
+    const isMobile = window.innerWidth <= 768 || navigator.maxTouchPoints > 0;
+
+    // Solo forzamos el foco si NO es un dispositivo móvil
+    if (!isMobile) {
       setTimeout(() => {
         inputRef.current?.focus();
       }, 30);
     }
-  }, [agentTyping, currentScreen]);
+  }
+}, [agentTyping, currentScreen]);
 
   // 🎬 COREOGRAFÍA FLUIDA CON TU IDEA (Ocupando el espacio desde el inicio)
 // 🎬 COREOGRAFÍA FLUIDA CORREGIDA (Cross-fade sincronizado y ocultamiento inicial)
