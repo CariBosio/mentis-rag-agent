@@ -15,7 +15,6 @@ interface Message {
 }
 
 function App() {
-
   //useState
   const [loading, setLoading] = useState(true);
   const [currentScreen, setCurrentScreen] = useState<"welcome" | "chat">(
@@ -57,16 +56,18 @@ function App() {
     if (!window.visualViewport) return;
 
     const handleResize = () => {
-      const currentHeight = window.visualViewport.height;
-      document.documentElement.style.setProperty(
-        "--viewport-height",
-        `${currentHeight}px`,
-      );
+      const currentHeight = window.visualViewport?.height;
+      if (currentHeight !== undefined && currentHeight !== null) {
+        document.documentElement.style.setProperty(
+          "--viewport-height",
+          `${currentHeight}px`,
+        );
+      }
     };
 
     window.visualViewport.addEventListener("resize", handleResize);
     window.visualViewport.addEventListener("scroll", handleResize); // Evita desfases en iOS
-    handleResize(); 
+    handleResize();
 
     return () => {
       window.visualViewport?.removeEventListener("resize", handleResize);
@@ -105,7 +106,7 @@ function App() {
   // Foco del Input
   useEffect(() => {
     if (!agentTyping && currentScreen === "chat" && inputRef.current) {
-          const isMobile = window.innerWidth <= 768 || navigator.maxTouchPoints > 0;
+      const isMobile = window.innerWidth <= 768 || navigator.maxTouchPoints > 0;
       // Solo forzamos el foco si NO es un dispositivo móvil
       if (!isMobile) {
         setTimeout(() => {
@@ -214,7 +215,7 @@ function App() {
                 duration: 0.3,
                 ease: "power1.inOut",
               },
-              "viaje+=1.1", 
+              "viaje+=1.1",
             );
 
             flightTl.to(
@@ -224,7 +225,7 @@ function App() {
                 duration: 0.3,
                 ease: "power1.inOut",
               },
-              "viaje+=1.1", 
+              "viaje+=1.1",
             );
           },
         },
@@ -360,7 +361,7 @@ function App() {
             </button>
           </header>
 
-         <div className="messages-container" data-lenis-prevent>
+          <div className="messages-container" data-lenis-prevent>
             {messages.map((msg, index) => (
               <div key={index} className={`message-wrapper ${msg.sender}`}>
                 {msg.sender === "menti" && (
