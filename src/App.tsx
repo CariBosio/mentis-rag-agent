@@ -15,6 +15,8 @@ interface Message {
 }
 
 function App() {
+
+  //useState
   const [loading, setLoading] = useState(true);
   const [currentScreen, setCurrentScreen] = useState<"welcome" | "chat">(
     "welcome",
@@ -32,7 +34,7 @@ function App() {
 
   // Referencias para los contenedores del logo (Origen y Destino)
   const welcomeLogoRef = useRef<HTMLDivElement>(null);
-  const sidebarLogoRef = useRef<HTMLImageElement>(null); // Cambiado a HTMLImageElement
+  const sidebarLogoRef = useRef<HTMLImageElement>(null);
   const mobileLogoRef = useRef<HTMLImageElement>(null);
 
   // Inicialización global de Lenis (Smooth Scroll)
@@ -50,23 +52,25 @@ function App() {
     return () => lenis.destroy();
   }, []);
 
-  // 📱 TRUCO MAESTRO: Ajustar altura real libre del teclado en móviles
+  // Ajustar altura real libre del teclado en móviles
   useEffect(() => {
     if (!window.visualViewport) return;
 
     const handleResize = () => {
-      // Mide el alto real disponible libre del teclado virtual
       const currentHeight = window.visualViewport.height;
-      document.documentElement.style.setProperty('--viewport-height', `${currentHeight}px`);
+      document.documentElement.style.setProperty(
+        "--viewport-height",
+        `${currentHeight}px`,
+      );
     };
 
-    window.visualViewport.addEventListener('resize', handleResize);
-    window.visualViewport.addEventListener('scroll', handleResize); // Evita desfases en iOS
-    handleResize(); // Ejecución inicial
+    window.visualViewport.addEventListener("resize", handleResize);
+    window.visualViewport.addEventListener("scroll", handleResize); // Evita desfases en iOS
+    handleResize(); 
 
     return () => {
-      window.visualViewport?.removeEventListener('resize', handleResize);
-      window.visualViewport?.removeEventListener('scroll', handleResize);
+      window.visualViewport?.removeEventListener("resize", handleResize);
+      window.visualViewport?.removeEventListener("scroll", handleResize);
     };
   }, []);
 
@@ -99,28 +103,25 @@ function App() {
   }, [messages, agentTyping]);
 
   // Foco del Input
- useEffect(() => {
-  if (!agentTyping && currentScreen === "chat" && inputRef.current) {
-    // 📱 DETECCIÓN DE MOBILE: Evaluamos si es una pantalla táctil o menor a 768px
-    const isMobile = window.innerWidth <= 768 || navigator.maxTouchPoints > 0;
-
-    // Solo forzamos el foco si NO es un dispositivo móvil
-    if (!isMobile) {
-      setTimeout(() => {
-        inputRef.current?.focus();
-      }, 30);
+  useEffect(() => {
+    if (!agentTyping && currentScreen === "chat" && inputRef.current) {
+          const isMobile = window.innerWidth <= 768 || navigator.maxTouchPoints > 0;
+      // Solo forzamos el foco si NO es un dispositivo móvil
+      if (!isMobile) {
+        setTimeout(() => {
+          inputRef.current?.focus();
+        }, 30);
+      }
     }
-  }
-}, [agentTyping, currentScreen]);
+  }, [agentTyping, currentScreen]);
 
-  // 🎬 COREOGRAFÍA FLUIDA CON TU IDEA (Ocupando el espacio desde el inicio)
-// 🎬 COREOGRAFÍA FLUIDA CORREGIDA (Cross-fade sincronizado y ocultamiento inicial)
+  //Lobby animation
   useEffect(() => {
     if (!loading) {
-      // 1. 🎯 CORRECCIÓN 1: Ocultamos AMBOS logos fijos al arrancar para evitar fugas en mobile
+      // Ocultamos AMBOS logos fijos al arrancar para evitar fugas en mobile
       gsap.set(chatLayoutRef.current, { opacity: 0, y: 20 });
       gsap.set(sidebarLogoRef.current, { opacity: 0 });
-      gsap.set(mobileLogoRef.current, { opacity: 0 }); 
+      gsap.set(mobileLogoRef.current, { opacity: 0 });
 
       const mainTimeline = gsap.timeline();
 
@@ -134,7 +135,7 @@ function App() {
       // Tiempo de espera para disfrutar la animación SVG inicial antes del viaje
       mainTimeline.to({}, { duration: 6.0 });
 
-      // 3. 🚀 Vuelo dinámico usando la posición real de la imagen oculta
+      // Vuelo dinámico usando la posición real de la imagen oculta
       mainTimeline.to(
         {},
         {
@@ -142,7 +143,7 @@ function App() {
           onComplete: () => {
             if (!welcomeLogoRef.current || !sidebarLogoRef.current) return;
 
-            // 🧠 DETECCIÓN EN TIEMPO REAL: Evaluamos si la pantalla es mobile (< 768px)
+            // Evaluamos si la pantalla es mobile (< 768px)
             const isMobile = window.innerWidth <= 768;
 
             // Si es mobile, el objetivo métrico es el logo de la cabecera; si es escritorio, la barra lateral
@@ -205,7 +206,7 @@ function App() {
               "viaje",
             );
 
-            // 4. 🎯 CORRECCIÓN 2: Cross-fade impecable justo cuando termina el viaje (posición "viaje+=1.1")
+            // 4. Cross-fade impecable justo cuando termina el viaje (posición "viaje+=1.1")
             flightTl.to(
               welcomeLogoRef.current,
               {
@@ -213,7 +214,7 @@ function App() {
                 duration: 0.3,
                 ease: "power1.inOut",
               },
-              "viaje+=1.1", // Sincronizado exacto al fin del trayecto de 1.1s
+              "viaje+=1.1", 
             );
 
             flightTl.to(
@@ -223,7 +224,7 @@ function App() {
                 duration: 0.3,
                 ease: "power1.inOut",
               },
-              "viaje+=1.1", // Prende el logo destino real en simultáneo
+              "viaje+=1.1", 
             );
           },
         },
@@ -294,6 +295,8 @@ function App() {
               style={{ opacity: currentScreen === "chat" ? 1 : 0 }}
             />
           </div>
+
+          {/* Menú de navegación principal superior */}
           <nav className="sidebar-nav">
             <a
               href="#"
@@ -312,11 +315,27 @@ function App() {
               📊 Reportes <small>Soon</small>
             </a>
           </nav>
+
+          {/* Footer de la barra lateral */}
+          <div className="sidebar-footer">
+            <a
+              href="https://t.me/MentiAgentBot"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-telegram-omni"
+              onClick={() => setMenuOpen(false)}
+            >
+              <svg className="telegram-icon" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-1-.65-.35-1 .22-1.62.15-.15 2.73-2.5 2.78-2.7.01-.03.01-.15-.06-.21-.07-.06-.17-.04-.25-.02-.11.02-1.85 1.17-5.23 3.45-.5.34-.95.51-1.35.5-.44-.01-1.29-.25-1.92-.45-.77-.25-1.39-.39-1.34-.83.03-.23.35-.46.97-.71 3.79-1.65 6.32-2.74 7.59-3.27 3.61-1.5 4.36-1.76 4.85-1.77.11 0 .35.03.51.16.13.11.17.27.19.39-.01.07.01.21 0 .26z" />
+              </svg>
+              <span>Abrir en Telegram</span>
+            </a>
+          </div>
         </aside>
 
         <main className="chat-main-area">
           <header className="chat-view-header">
-            {/* 🎯 LOGO RESPONSIVE: Visible solo en pantallas mobile a través de CSS */}
+            {/* LOGO RESPONSIVE */}
             <img
               ref={mobileLogoRef}
               src={mentisLogo}
@@ -329,7 +348,7 @@ function App() {
               <span className="status-indicator">En línea</span>
             </div>
 
-            {/* 🍔 BOTÓN HAMBURGUESA: Aparece y colapsa mediante Flexbox nativo */}
+            {/* BOTÓN HAMBURGUESA */}
             <button
               className={`hamburger-menu-btn ${menuOpen ? "open" : ""}`}
               onClick={() => setMenuOpen(!menuOpen)}
@@ -341,7 +360,7 @@ function App() {
             </button>
           </header>
 
-          <div className="messages-container">
+         <div className="messages-container" data-lenis-prevent>
             {messages.map((msg, index) => (
               <div key={index} className={`message-wrapper ${msg.sender}`}>
                 {msg.sender === "menti" && (

@@ -1,25 +1,30 @@
 :root {
-  /* Fondos e Interfaces Inmersivas (Azules-Violetas Profundos) */
-  --bg-main: oklch(0.13 0.015 260);            /* Fondo base ultra oscuro y limpio */
-  --bg-surface: oklch(0.17 0.02 265 / 70%);     /* Superficie de chat con glassmorphism */
-  
-  /* Tipografías Nítidas */
-  --text-main: oklch(0.97 0.005 260);           /* Blanco suave, descansa la vista */
-  --text-muted: oklch(0.75 0.015 260);          /* Gris azulado sutil para subtítulos */
-
-  /* Acento Primario (Tu color de interacción / Botones / Esfera de carga) */
-  --accent: oklch(0.68 0.16 270);               /* Violeta/Azul eléctrico premium */
-  --accent-glow: oklch(0.68 0.20 270 / 30%);    /* Brillo expansivo para la zona del avatar */
-  
-  /* --- 🚀 NUEVO: El Acento de Mentis (Imagotipo) --- */
-  --brand-logo-color: oklch(0.78 0.16 142);     /* Esmeralda Bio-Digital (Opción A) */
-  --brand-logo-glow: oklch(0.78 0.16 142 / 25%); /* Brillo sutil para que el logo tenga aura */
-
-
-/* #AAD4AA */
-
-
-
+  /* Colores */
+  --black: oklch(0 0 0);
+  --white: oklch(1 0 0);
+  --bg-main: oklch(0.13 0.015 260);
+  --bg-surface: oklch(0.17 0.02 265 / 70%);
+  --accent: oklch(0.68 0.16 270);
+  --accent-glow: oklch(0.68 0.2 270 / 30%);
+  --brand-logo-color: oklch(0.78 0.16 142);
+  --brand-logo-glow: oklch(0.78 0.16 142 / 25%);
+  --telegram-color: oklch(0.6623 0.1334 235.92);
+  --telegram-glow: oklch(0.6623 0.1334 235.92 / 35%);
+  --text-main: oklch(0.97 0.005 260);
+  --text-muted: oklch(0.75 0.015 260);
+  --bg-app-light: oklch(0.2326 0.0705 283.02);
+  --bg-app-dark: oklch(0.1551 0.0087 274.28);
+  --bg-chat: oklch(0.1509 0.0109 276.17 / 20%);
+  --bg-msg-container: oklch(0.1509 0.0109 276.17 / 15%);
+  --bg-msg-agent: oklch(0.2447 0.0328 276.01);
+  --bg-form: oklch(0.1902 0.0226 276.08); 
+  --shadow-msg-patient: oklch(0.607 0.2146 275.6 / 20%);
+  --background-app: radial-gradient(
+    circle at 50% 50%,
+    var(--bg-app-light) 0%,
+    var(--bg-app-dark) 75%
+  );
+  --bg-sidebar: oklch(0.1509 0.0109 276.17 / 95%);
 
   /* Bordes y Detalles */
   --border-glow: oklch(1 0 0 / 8%);
@@ -38,7 +43,6 @@
   );
 }
 
-/* Ocupar toda la pantalla sin márgenes residuales */
 html,
 body,
 #root {
@@ -55,14 +59,13 @@ body,
   overflow: hidden;
 }
 
-/* Contenedor principal con el degradado de Choco */
 .app-container {
   width: 100%;
- height: var(--viewport-height, 100dvh);
+  height: var(--viewport-height, 100dvh);
   display: flex;
   justify-content: center;
   align-items: center;
-  background: radial-gradient(circle at 50% 50%, #1a173d 0%, #0b0c10 75%);
+  background-image: var(--background-app);
 }
 
 /* --- LOBBY DE BIENVENIDA --- */
@@ -76,8 +79,8 @@ body,
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 10; /* Se para arriba del chat layout */
-  background-color: #12131a; /* El color oscuro de tu fondo */
+  z-index: 10;
+  background-color: var(--bg-main);
   background-image: var(--background-welcome);
   background-size: 100% 100%;
 }
@@ -91,15 +94,15 @@ body,
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 11; /* Se para arriba de la welcome-screen */
-  pointer-events: none; /* No bloquea interacción */
+  z-index: 11;
+  pointer-events: none;
 }
 
 .brand-header {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 30px;
+  gap: 0.75rem;
+  margin-bottom: 1.875rem;
 }
 
 .brand-logo-container {
@@ -111,33 +114,23 @@ body,
   width: 100%;
   height: 100%;
   object-fit: contain;
-  /* Hace que el color del logo emita una luz suave que se integra al fondo oscuro */
-  filter: drop-shadow(0 0 20px var(--brand-logo-glow));
+  filter: drop-shadow(0 0 1.25rem var(--brand-logo-glow));
 }
 
 /* Máscara del Avatar Central con Brillo */
 .avatar-interaction-zone {
-  margin: 25px 0;
+  margin: 1.563rem 0;
 }
 
 .interactive-avatar-glow {
-  width: 170px;
-  height: 170px;
+  width: 10.625rem;
+  height: 10.625rem;
   background: var(--accent-glow);
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 0 60px var(--accent-glow);
-}
-
-.interactive-avatar-core {
-  width: 130px;
-  height: 130px;
-  background: #11131e;
-  border: 2px solid var(--accent);
-  border-radius: 50%;
-  overflow: hidden;
+  box-shadow: 0 0 3.75rem var(--accent-glow);
 }
 
 .premium-avatar-img {
@@ -146,90 +139,51 @@ body,
   object-fit: cover;
 }
 
-/* .welcome-text h1 {
-  font-size: 2.4rem;
-  font-weight: 800;
-  color: #fff;
-  margin: 0 0 12px 0;
-}
-
-.welcome-text p {
-  color: var(--text-muted);
-  font-size: 1rem;
-  line-height: 1.5;
-  margin: 0;
-}
-
-.btn-primary-start {
-  margin-top: 35px;
-  padding: 16px 36px;
-  background: var(--accent);
-  color: white;
-  border: none;
-  border-radius: 35px;
-  font-size: 1.05rem;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: 0 12px 28px var(--accent-glow);
-  transition:
-    transform 0.2s,
-    box-shadow 0.2s;
-}
-
-.btn-primary-start:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 16px 35px rgba(100, 108, 255, 0.6);
-} */
-
 /* --- DASHBOARD LAYOUT (CHATROOM) --- */
 .dashboard-layout {
   width: 100%;
   height: 100%;
-  display: flex; /* Cambiado de Grid a Flex para fluidez extrema */
-  flex-wrap: nowrap; /* Cambiado a nowrap para que la cabecera no flote */
+  display: flex;
+  flex-wrap: nowrap;
   background: var(--bg-surface);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--border-glow);
-  /* border-radius: 28px; */
-  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(1.25rem);
+  border: 0.0625rem solid var(--border-glow);
+  box-shadow: 0 2.5rem 5rem color-mix(in oklch, var(--white) 10%, transparent);
   overflow: hidden !important;
   position: relative;
 }
 
-/* Sidebar lateral */
 /* Sidebar lateral fija */
 .sidebar-placeholder {
-background: rgba(10, 11, 16, 0.95);
-  border-right: 1px solid var(--border-glow);
-  padding: 35px 25px;
+  background: var(--bg-sidebar);
+  border-right: 0.0625rem solid var(--border-glow);
+  padding: 2.1875rem 1.5625rem;
   display: flex;
   flex-direction: column;
-  gap: 35px;
+  gap: 2.1875rem;
   height: 100dvh;
   box-sizing: border-box;
   overflow: hidden;
   z-index: 20;
-
-  /* 🧠 ESTRATEGIA SIN MEDIA QUERIES:
-     Usamos flex-basis combinando una expresión matemática para determinar si 
-     la pantalla es mobile (<768px). Si colapsa, pasa a posición fixed automáticamente. */
-  flex-basis: clamp(260px, (768px - 100vw) * 9999, 100%);
-  max-width: 260px;
+  flex-basis: clamp(16.25rem, (48rem - 100vw) * 9999, 100%);
+  max-width: 16.25rem;
   transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-@container (max-width: 0px) {} /* Simulación conceptual */
+@container (max-width: 0rem) {
+}
 .dashboard-layout {
-  --is-mobile: clamp(0, (768px - 100vw) * 9999, 1);
+  --is-mobile: clamp(0, (48rem - 100vw) * 9999, 1);
 }
 
-@supports (top: calc(var(--is-mobile) * 1px)) {
-  /* Si estamos en mobile, sacamos la barra del flujo con un truco posicional */
+@supports (top: calc(var(--is-mobile) * 0.0625rem)) {
   .sidebar-placeholder {
     position: var(--sidebar-pos, fixed);
     left: 0;
     top: 0;
-    transform: translateX(calc(var(--menu-offset, -100%) * (768px - 100vw) * 9999));
+    transform: translateX(
+      calc(var(--menu-offset, -100%) * (48rem - 100vw) * 9999)
+    );
   }
 }
 
@@ -239,10 +193,58 @@ background: rgba(10, 11, 16, 0.95);
   top: 0;
   bottom: 0;
   transform: translateX(-100%); /* Oculto por defecto en pantallas compactas */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-/* Cuando la pantalla se estira a escritorio, se auto-posiciona en su lugar */
-@media (min-width: 769px) {
+/* Botón Telegram */
+
+.sidebar-footer {
+  margin-top: auto;
+  padding-top: 1.25rem;
+  width: 100%;
+}
+
+.btn-telegram-omni {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  background: color-mix(in oklch, var(--brand-logo-color) 6%, transparent);
+  border: 0.0625rem solid
+    color-mix(in oklch, var(--brand-logo-color) 15%, transparent);
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 0.875rem 1.125rem;
+  border-radius: 0.875rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.btn-telegram-omni:hover {
+  background: var(--telegram-color);
+  color: var(--text-main);
+  border-color: var(--telegram-color);
+  box-shadow: 0 0.5rem 1.5625rem var(--telegram-glow);
+}
+
+.telegram-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: var(--text-main);
+  transition: fill 0.3s ease;
+}
+
+.btn-telegram-omni:hover .telegram-icon {
+  fill: var(--text-main);
+}
+
+/* Media queries */
+@media (min-width: 48.0625rem) {
   .sidebar-placeholder {
     position: relative;
     transform: translateX(0);
@@ -261,7 +263,8 @@ background: rgba(10, 11, 16, 0.95);
 /* Estilos activos cuando el menú móvil está abierto */
 .menu-active .sidebar-placeholder {
   transform: translateX(0);
-  box-shadow: 20px 0 40px rgba(0, 0, 0, 0.6);
+  box-shadow: 1.25rem 0 2.5rem
+    color-mix(in oklch, var(--black) 60%, transparent);
 }
 
 .sidebar-overlay {
@@ -270,8 +273,8 @@ background: rgba(10, 11, 16, 0.95);
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(4px);
+  background: color-mix(in oklch, var(--black) 40%, transparent);
+  backdrop-filter: blur(0.25rem);
   z-index: 15;
   opacity: 0;
   pointer-events: none;
@@ -287,31 +290,25 @@ background: rgba(10, 11, 16, 0.95);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 0.75rem;
 }
 
 .sidebar-logo-img {
-  width: 100px;
+  width: 6.25rem;
   height: auto;
- }
-
-.sidebar-brand-name {
-  font-weight: 700;
-  font-size: 1.3rem;
-  color: #fff;
 }
 
 .sidebar-nav {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .nav-item {
   color: var(--text-muted);
   text-decoration: none;
-  padding: 12px 16px;
-  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
   font-size: clamp(0.75rem, 0.704rem + 0.21vw, 0.95rem);
   display: flex;
   justify-content: space-between;
@@ -322,8 +319,8 @@ background: rgba(10, 11, 16, 0.95);
 }
 
 .nav-item.active {
-  background: rgba(255, 255, 255, 0.06);
-  color: #fff;
+  background: color-mix(in oklch, var(--white) 6%, transparent);
+  color:var(--text-main);
   font-weight: 600;
 }
 
@@ -334,9 +331,9 @@ background: rgba(10, 11, 16, 0.95);
 
 .nav-item small {
   font-size: 0.75rem;
-  background: rgba(255, 255, 255, 0.1);
-  padding: 2px 6px;
-  border-radius: 6px;
+  background: color-mix(in oklch, var(--white) 10%, transparent);
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.375rem;
 }
 
 /* Contenedor central del chat */
@@ -345,14 +342,14 @@ background: rgba(10, 11, 16, 0.95);
   flex-direction: column;
   flex-grow: 1;
   flex-basis: 0;
-  min-width: calc(100% - 260px);
+  min-width: calc(100% - 16.25rem);
   height: 100%;
   max-height: 100%;
   overflow: hidden;
 }
 
 /* Ajustes finos de Mobile para el área de mensajes */
-@media (max-width: 768px) {
+@media (max-width: 48rem) {
   .chat-main-area {
     min-width: 100%;
   }
@@ -366,12 +363,12 @@ background: rgba(10, 11, 16, 0.95);
 
 /* --- CABECERA ADAPTABLE (NAVBAR UNIFICADA) --- */
 .chat-view-header {
-  padding: 20px clamp(1rem, 2.5vw, 2.2rem);
-  border-bottom: 1px solid var(--border-glow);
+  padding: 1.25rem clamp(1rem, 2.5vw, 2.2rem);
+  border-bottom: 0.0625rem solid var(--border-glow);
   display: flex;
   align-items: center;
   justify-content: space-between; /* Distribuye Logo - Texto - Hamburguesa */
-  background: rgba(10, 11, 16, 0.2);
+  background: var(--bg-chat);
   flex-shrink: 0;
   width: 100%;
   box-sizing: border-box;
@@ -403,8 +400,7 @@ background: rgba(10, 11, 16, 0.95);
   z-index: 25;
 }
 
-/* --- BOTÓN HAMBURGUESA PREMIUM --- */
-/* --- BOTÓN HAMBURGUESA PREMIUM --- */
+/* --- BOTÓN HAMBURGUESA --- */
 .hamburger-menu-btn {
   width: clamp(1.25rem, 1.106rem + 0.64vw, 1.875rem);
   height: clamp(1rem, 0.885rem + 0.51vw, 1.5rem);
@@ -416,19 +412,20 @@ background: rgba(10, 11, 16, 0.95);
   cursor: pointer;
   padding: 0;
   z-index: 25;
-  position: relative; /* Clave para el posicionamiento interno */
+  position: relative;
 }
 
 .hamburger-menu-btn span {
   width: 100%;
-  height: 3px;
+  height: 0.1875rem;
   background-color: var(--text-main);
-  border-radius: 4px;
-  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease, background-color 0.3s ease;
-  transform-origin: center; /* Cada línea rota exactamente sobre su centro */
+  border-radius: 0.25rem;
+  transition:
+    transform 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+    opacity 0.3s ease,
+    background-color 0.3s ease;
+  transform-origin: center;
 }
-
-/* 🎯 ANIMACIÓN A X CORREGIDA */
 
 /* Línea Superior (Se convierte en diagonal primaria) */
 .hamburger-menu-btn.open span:nth-child(1) {
@@ -453,10 +450,10 @@ background: rgba(10, 11, 16, 0.95);
 }
 
 .mini-avatar-container {
-  width: 42px;
-  height: 42px;
+  width: 2.625rem;
+  height: 2.625rem;
   border-radius: 50%;
-  border: 1px solid var(--accent);
+  border: 0.0625rem solid var(--accent);
   overflow: hidden;
 }
 
@@ -469,7 +466,7 @@ background: rgba(10, 11, 16, 0.95);
 .chat-view-header h3 {
   margin: 0;
   font-size: clamp(0.875rem, 0.835rem + 0.18vw, 1.05rem);
-  color: #fff;
+  color: var(--text-main);
 }
 
 .status-indicator {
@@ -477,29 +474,32 @@ background: rgba(10, 11, 16, 0.95);
   color: var(--brand-logo-color);
   display: flex;
   align-items: center;
-  gap: 6px;
-  margin-top: 2px;
+  gap: 0.375rem;
+  margin-top: 0.125rem;
 }
 
 .status-indicator::before {
   content: "";
-  width: 6px;
-  height: 6px;
+  width: 0.375rem;
+  height: 0.375rem;
   background: var(--brand-logo-color);
   border-radius: 50%;
   animation: pulse-green 1.5s infinite;
-  box-shadow: 0 0 0 0 rgba(46, 213, 115, 0);
+  /* box-shadow: 0 0 0 0 color-mix(in oklch, var(--brand-logo-color), transparent); */
 }
 
 @keyframes pulse-green {
   0% {
-    box-shadow: 0 0 0 0 rgba(46, 213, 115, 0.7);
+    box-shadow: 0 0 0 0
+      color-mix(in oklch, var(--brand-logo-color) 70%, transparent);
   }
   70% {
-    box-shadow: 0 0 0 7px rgba(46, 213, 115, 0);
+    box-shadow: 0 0 0 0.4375rem
+      color-mix(in oklch, var(--brand-logo-color) 0%, transparent);
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(46, 213, 115, 0);
+    box-shadow: 0 0 0 0
+      color-mix(in oklch, var(--brand-logo-color) 0%, transparent);
   }
 }
 
@@ -507,29 +507,27 @@ background: rgba(10, 11, 16, 0.95);
 .messages-container {
   flex: 1;
   overflow-y: auto !important;
-  padding: clamp(1.875rem, 1.587rem + 1.28vw, 3.125rem) clamp(1rem, 0.726rem + 1.22vw, 2.188rem) clamp(1.25rem, 1.034rem + 0.96vw, 2.188rem);
+  padding: clamp(1.875rem, 1.587rem + 1.28vw, 3.125rem)
+    clamp(1rem, 0.726rem + 1.22vw, 2.188rem)
+    clamp(1.25rem, 1.034rem + 0.96vw, 2.188rem);
   display: flex;
   flex-direction: column;
-  gap: 22px;
-  background: rgba(10, 11, 16, 0.15);
-
-  /* 🚀 EFECTO AWWWARDS: Difuminado / Desvanecimiento en los bordes */
+  gap: 1.375rem;
+  background: var(--bg-msg-container);
   -webkit-mask-image: linear-gradient(
     to bottom,
     transparent 0%,
-    rgba(0, 0, 0, 0) 2%,
-    /* Mantiene un mínimo margen superior 100% invisible */ rgba(0, 0, 0, 1) 10%,
-    /* Subimos al 20% para que el difuminado sea mucho más largo y dramático */
-    rgba(0, 0, 0, 1) 94%,
-    /* Área de lectura limpia y nítida */ transparent 100%
-      /* Suavizado leve en el fondo antes del footer */
+    color-mix(in oklch, var(--black) 0%, transparent) 2%,
+    color-mix(in oklch, var(--black) 100%, transparent) 10%,
+    color-mix(in oklch, var(--black) 100%, transparent) 94%,
+    transparent 100%
   );
   mask-image: linear-gradient(
     to bottom,
     transparent 0%,
-    rgba(0, 0, 0, 0) 2%,
-    rgba(0, 0, 0, 1) 10%,
-    rgba(0, 0, 0, 1) 94%,
+    color-mix(in oklch, var(--black) 0%, transparent) 2%,
+    color-mix(in oklch, var(--black) 100%, transparent) 10%,
+    color-mix(in oklch, var(--black) 100%, transparent) 94%,
     transparent 100%
   );
 }
@@ -537,7 +535,7 @@ background: rgba(10, 11, 16, 0.95);
 .message-wrapper {
   display: flex;
   align-items: flex-end;
-  gap: 14px;
+  gap: 0.875rem;
   max-width: 75%;
 }
 
@@ -564,34 +562,36 @@ background: rgba(10, 11, 16, 0.95);
 }
 
 .message-bubble {
-  padding: clamp(0rem, -0.216rem + 0.96vw, 0.938rem) clamp(0.75rem, 0.606rem + 0.64vw, 1.375rem);
-  border-radius: 20px;
-  font-size: clamp(0.75rem, 0.697rem + 0.24vw, 0.98rem);
+  padding: clamp(0rem, -0.216rem + 0.96vw, 0.938rem)
+    clamp(0.75rem, 0.606rem + 0.64vw, 1.375rem);
+  border-radius: 1.25rem;
+  /* font-size: clamp(0.75rem, 0.697rem + 0.24vw, 0.98rem); */
+  font-size: 1rem;
   line-height: 1.5;
-}
+  }
 
 .paciente .message-bubble {
   background: var(--accent);
-  color: #fff;
-  border-bottom-right-radius: 4px;
-  box-shadow: 0 4px 12px rgba(100, 108, 255, 0.2);
+  color: var(--text-main);
+  border-bottom-right-radius: 0.25rem;
+  box-shadow: 0 0.25rem 0.75rem var(--shadow-msg-patient);
 }
 
 .menti .message-bubble {
-  background: #1c1f30;
+  background: var(--bg-msg-agent);
   color: var(--text-main);
-  border-bottom-left-radius: 4px;
-  border: 1px solid var(--border-glow);
+  border-bottom-left-radius: 0.25rem;
+  border: 0.0625rem solid var(--border-glow);
 }
 
 /* Tres puntitos de carga */
 .typing-indicator span {
-  height: 8px;
-  width: 8px;
+  height: clamp(0.3rem, 0.254rem + 0.21vw, 0.5rem);
+  width: clamp(0.3rem, 0.254rem + 0.21vw, 0.5rem);
   background: var(--text-muted);
   border-radius: 50%;
   display: inline-block;
-  margin-right: 5px;
+  margin-right: 0.3125rem;
   animation: bounce 1.3s infinite ease-in-out;
 }
 .typing-indicator span:nth-child(2) {
@@ -603,19 +603,20 @@ background: rgba(10, 11, 16, 0.95);
 
 /* Footer e Input bar */
 .chat-input-footer {
-  padding: clamp(0.75rem, 0.563rem + 0.83vw, 1.563rem) clamp(1rem, 0.726rem + 1.22vw, 2.188rem);
-  border-top: 1px solid var(--border-glow);
-  background: rgba(10, 11, 16, 0.2);
-  flex-shrink: 0; /* Impide que la barra de escritura colapse o se mueva hacia abajo */
+  padding: clamp(0.75rem, 0.563rem + 0.83vw, 1.563rem)
+    clamp(1rem, 0.726rem + 1.22vw, 2.188rem);
+  border-top: 0.0625rem solid var(--border-glow);
+  background: var(--bg-chat);
+  flex-shrink: 0;
 }
 
 .chat-form {
   display: flex;
-  gap: 15px;
-  background: #11131e;
-  padding: 7px 7px 7px clamp(1rem, 1.5vw, 1.5rem);
-  border-radius: 35px;
-  border: 1px solid var(--border-glow);
+  gap: 0.9375rem;
+  background: var(--bg-form);
+  padding: 0.4375rem 0.4375rem 0.4375rem clamp(1rem, 1.5vw, 1.5rem);
+  border-radius: 2.1875rem;
+  border: 0.0625rem solid var(--border-glow);
 }
 
 .chat-form input {
@@ -624,16 +625,18 @@ background: rgba(10, 11, 16, 0.95);
   border: none;
   color: white;
   outline: none;
-  font-size: clamp(0.75rem, 0.697rem + 0.24vw, 0.98rem);
+  /* font-size: clamp(0.75rem, 0.697rem + 0.24vw, 0.98rem); */
+  font-size: 1rem;
 }
 
 .chat-form button {
-  padding: clamp(0.5rem, 0.399rem + 0.45vw, 0.938rem) clamp(0.75rem, 0.606rem + 0.64vw, 1.375rem);
+  padding: clamp(0.5rem, 0.399rem + 0.45vw, 0.938rem)
+    clamp(0.75rem, 0.606rem + 0.64vw, 1.375rem);
   background: var(--accent);
-  color: white;
+  color: var(--text-main);
   border: none;
-  border-radius: 25px;
-  font-size:clamp(0.75rem, 0.692rem + 0.26vw, 1rem) ;
+  border-radius: 1.5625rem;
+  font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
   transition: background 0.2s;
@@ -646,14 +649,14 @@ background: rgba(10, 11, 16, 0.95);
 
 /* Ocultar scrollbar pero mantener funcionalidad */
 .messages-container::-webkit-scrollbar {
-  width: 6px;
+  width: 0.375rem;
 }
 .messages-container::-webkit-scrollbar-track {
   background: transparent;
 }
 .messages-container::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
+  background: color-mix(in oklch, var(--white) 10%, transparent);
+  border-radius: 0.625rem;
 }
 
 @keyframes bounce {
@@ -662,6 +665,6 @@ background: rgba(10, 11, 16, 0.95);
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-6px);
+    transform: translateY(-0.375rem);
   }
 }
