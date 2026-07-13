@@ -36,6 +36,8 @@ La solución utiliza una **Cadena de Retorno (Retrieval QA Chain)** orquestada d
 
 <img src="public/Workflow Mentis - Chatbot RAG.png" width="900" alt="Workflow n8n Mentis - Chatbot RAG">
 
+📥 **Archivos de Producción:** Los flujos lógicos completos de este backend se encuentran exportados en formato JSON en la carpeta `/n8n` de este repositorio, listos para ser importados y replicados en cualquier instancia de n8n.
+
 ## 📂 Estructura del Repositorio
 * `/src`: Código fuente del frontend (Componentes de chat, lógica core de React y estilos).
 * `/src/components`: Componentes aislados como `MentisImagotipo.tsx` (estructura SVG optimizada).
