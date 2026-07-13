@@ -43,7 +43,17 @@ La solución utiliza una **Cadena de Retorno (Retrieval QA Chain)** orquestada d
 * `/public/docs`: Base de conocimientos que alimenta el RAG (`politicas_mentis.txt`, manuales PDF).
 
 ## 💡 Desafíos Técnicos
-* **Ruteo Condicional Lógico en Entornos Stateless:** Uno de los mayores retos fue diseñar un nodo *Switch* omnicanal que no se rompiera debido a la limpieza de variables que hace n8n entre ejecuciones alternativas. Se resolvió implementando lógica condicional avanzada mediante funciones nativas de validación estática (`$if` junto con el método `.isExecuted`), logrando evaluar con éxito qué Webhook inició el hilo sin clavar errores críticos por "nodos no ejecutados".
+* **Ruteo Condicional Lógico en Entornos Stateless:** Uno de los mayores retos fue diseñar un nodo *Switch* omnicanal que no se rompiera debido a la limpieza de variables que hace n8n entre ejecuciones alternativas. Se resolvió implementando lógica condicional avanzada mediante funciones nativas de validación estática (`$if` junto con el método `.isExecuted`), logrando evaluar con éxito qué Webhook inició el hilo sin dejar errores críticos por "nodos no ejecutados".
+
+#### 📊 Evidencias de Enrutamiento en Caliente (QA):
+A continuación se observa cómo el sistema discrimina el origen de la petición en tiempo real, iluminando el pipeline correspondiente sin generar colisiones de memoria:
+
+**1. Petición activa procesada por el Canal Web:**
+<img src="public/Web Execution.png" width="850" alt="Ejecución exitosa del flujo a través del canal Web">
+
+**2. Petición activa procesada por el Canal Telegram:**
+<img src="public/Telegram Execution.png" width="850" alt="Ejecución exitosa del flujo a través del canal Telegram">
+
 * **Estandarización de Estructuras de Datos Heterogéneas:** Sincronizar la entrada de datos de Telegram (que maneja objetos de chat nativos) con los JSON estructurados enviados desde la aplicación en React requirió un mapeo minucioso mediante nodos *Edit Fields*. Se encapsularon los parámetros de entrada (`chatInput`, `sessionId` y `channel`) bajo la misma jerarquía del objeto `body` para homogeneizar el consumo del Agente de IA.
 * **Pipeline de Ingestión Automatizada (ETL RAG):** Diseño y ejecución de un flujo secundario en n8n especializado en la inyección masiva de documentos hacia la base de datos en Neon. El proceso consume mediante peticiones HTTP un endpoint plano de configuración externa (Pastebin `/raw/`), procesa y segmenta jerárquicamente el contenido usando un *Default Data Loader*, genera los vectores semánticos con *Cohere Embeddings* y los almacena de forma estructurada en las tablas de *PostgreSQL (PGVector)*.
 

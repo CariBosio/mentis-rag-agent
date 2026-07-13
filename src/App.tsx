@@ -67,12 +67,25 @@ function App() {
     };
 
     window.visualViewport.addEventListener("resize", handleResize);
-    window.visualViewport.addEventListener("scroll", handleResize); // Evita desfases en iOS
+    window.visualViewport.addEventListener("scroll", handleResize);
+
+    // HACKS específicos para iOS Safari: Forzar recálculo en foco y desenfoque globales
+    window.addEventListener("focusin", handleResize);
+    window.addEventListener("focusout", () => {
+      // Cuando sale el teclado, obligamos a la página a volver al tope absoluto
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        handleResize();
+      }, 50);
+    });
+
     handleResize();
 
     return () => {
       window.visualViewport?.removeEventListener("resize", handleResize);
       window.visualViewport?.removeEventListener("scroll", handleResize);
+      window.removeEventListener("focusin", handleResize);
+      window.removeEventListener("focusout", handleResize);
     };
   }, []);
 
@@ -408,6 +421,9 @@ function App() {
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Escribí tu consulta sobre aranceles, políticas o turnos..."
                 disabled={agentTyping}
+                // 👇 AGREGÁ ESTAS DOS LÍNEAS NUEVAS ACÁ:
+                onFocus={() => setTimeout(() => window.scrollTo(0, 0), 100)}
+                onBlur={() => window.scrollTo(0, 0)}
               />
               <button type="submit" disabled={agentTyping || !input.trim()}>
                 Preguntar
