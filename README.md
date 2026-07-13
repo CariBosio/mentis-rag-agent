@@ -3,6 +3,10 @@ Asistente virtual autónomo diseñado para la autogestión de información, encu
 
 <img src="public/Isotipo_Mentis.svg" width="180" alt="Avatar de Menti">
 
+<a href="https://mentis-rag-agent.vercel.app/" target="_blank">
+    <img src="https://img.shields.io/badge/🚀%20Ver%20Aplicación%20en%20Producción-Mentis-00c853?style=for-the-badge&logo=vercel&logoColor=white" alt="Despliegue en Vercel">
+  </a>
+
 ## 🚀 Acerca del Proyecto
 Mentis nació como un desafío técnico para resolver una necesidad real del ámbito clínico: optimizar la comunicación de normativas, horarios y encuadres psicoterapéuticos con los pacientes. Este proyecto me permitió profundizar la integración de mi formación en **Psicología con el desarrollo Frontend y la Inteligencia Artificial**.
 
@@ -65,6 +69,14 @@ A continuación se observa cómo el sistema discrimina el origen de la petición
 * **Fluidez Estructural y Control de Hooks:** Mantener el scroll perfectamente encapsulado en el área de conversación, logrando que la barra lateral y la cabecera queden fijas. Organización estricta de los hooks de React y efectos de GSAP para evitar errores en consola durante los estados de carga de la IA.
 * **Sincronización de Entornos (Vite + Vercel):** Resolución de conflictos de caché e inyección dinámica de endpoints mediante la purga y recompilación limpia de variables de entorno en producción.
 * **Seguridad de Credenciales (Git/GitHub):** Saneamiento profundo del árbol de Git mediante comandos avanzados de terminal (`git rm --cached`) para remover históricos de archivos `.env` que persistían de forma invisible en el repositorio.
+
+## 🌐 Despliegue y Acceso
+El ecosistema completo se encuentra productivo, sincronizado en entornos multi-cloud y accesible de forma pública a través de las siguientes terminales:
+
+* **Plataforma Web (Frontend):** Desplegada de forma continua en **Vercel** bajo un entorno seguro HTTPS de alto rendimiento.
+  * 🔗 **Enlace de acceso directo:** [mentis-rag-agent.vercel.app](https://mentis-rag-agent.vercel.app/)
+* **Orquestación del Backend (n8n):** Servidor persistente virtualizado de forma exitosa en la infraestructura de la nube a través de **Hugging Face Spaces**.
+* **Base de Datos Vectorial:** Instancia relacional serverless hosteada en **Neon (PostgreSQL)** administrando los índices RAG activos.
 
 ## 📽️ Demo Visual
 
