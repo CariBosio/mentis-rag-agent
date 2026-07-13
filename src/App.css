@@ -668,3 +668,147 @@ body,
     transform: translateY(-0.375rem);
   }
 }
+
+
+/* Popups Telegram */
+
+/* --- MODAL TELEGRAM POPUP --- */
+
+/* Capa de fondo que cubre toda la pantalla y desenfoca lo de atrás */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: color-mix(in oklch, var(--black) 50%, transparent);
+  backdrop-filter: blur(0.5rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100; /* Por encima de la sidebar y cabeceras */
+  animation: fadeIn 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Ventana contenedora del Popup */
+.telegram-popup {
+  background: var(--background-sidebar);
+  border: 0.0625rem solid var(--border-glow);
+  backdrop-filter: blur(1.25rem);
+  padding: 2rem;
+  border-radius: 1.5rem;
+  width: clamp(18.75rem, 90%, 28.125rem);
+  box-shadow: 0 2rem 4rem color-mix(in oklch, var(--black) 80%, transparent);
+  text-align: center;
+  box-sizing: border-box;
+  animation: scaleUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.telegram-popup h3 {
+  margin: 0 0 0.5rem 0;
+  color: var(--text-main);
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.telegram-popup p {
+  margin: 0 0 1.75rem 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* Contenedor de las dos opciones de botones */
+.popup-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Estilo base para las tarjetas de opción (App y Web) */
+.popup-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 1rem 1.25rem;
+  border-radius: 1rem;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.25s ease;
+  box-sizing: border-box;
+}
+
+.popup-btn small {
+  font-weight: 400;
+  font-size: 0.78rem;
+  margin-top: 0.25rem;
+  opacity: 0.75;
+}
+
+/* Tarjeta Opción 1: Aplicación (Usa el color de tu marca) */
+.popup-btn.app-link {
+  background: color-mix(in oklch, var(--brand-logo-color) 8%, transparent);
+  border: 0.0625rem solid color-mix(in oklch, var(--brand-logo-color) 20%, transparent);
+  color: var(--text-main);
+}
+
+.popup-btn.app-link:hover {
+  background: var(--brand-logo-color);
+  color: var(--black);
+  border-color: var(--brand-logo-color);
+  box-shadow: 0 0.5rem 1.5rem var(--brand-logo-glow);
+  transform: translateY(-0.125rem);
+}
+
+/* Tarjeta Opción 2: Web (Usa el color azul clásico de Telegram) */
+.popup-btn.web-link {
+  background: color-mix(in oklch, var(--telegram-color) 8%, transparent);
+  border: 0.0625rem solid color-mix(in oklch, var(--telegram-color) 20%, transparent);
+  color: var(--text-main);
+}
+
+.popup-btn.web-link:hover {
+  background: var(--telegram-color);
+  color: var(--text-main);
+  border-color: var(--telegram-color);
+  box-shadow: 0 0.5rem 1.5rem var(--telegram-glow);
+  transform: translateY(-0.125rem);
+}
+
+/* Botón Cancelar abajo de todo */
+.popup-close-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: color 0.2s, background 0.2s;
+}
+
+.popup-close-btn:hover {
+  color: var(--text-main);
+  background: color-mix(in oklch, var(--white) 5%, transparent);
+}
+
+/* --- ANIMACIONES --- */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(0.625rem);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}

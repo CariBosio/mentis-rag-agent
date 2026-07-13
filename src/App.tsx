@@ -24,6 +24,7 @@ function App() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [agentTyping, setAgentTyping] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [telegramModalOpen, setTelegramModalOpen] = useState(false);
 
   // Referencias para elementos del DOM
   const welcomeRef = useRef<HTMLDivElement>(null);
@@ -319,18 +320,18 @@ function App() {
 
           {/* Footer de la barra lateral */}
           <div className="sidebar-footer">
-            <a
-              href="https://t.me/MentiAgentBot"
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
               className="btn-telegram-omni"
-              onClick={() => setMenuOpen(false)}
+              onClick={() => {
+                setMenuOpen(false); // Cierra el menú mobile si estaba abierto
+                setTelegramModalOpen(true); // Abre nuestro popup
+              }}
             >
               <svg className="telegram-icon" viewBox="0 0 24 24">
                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-1-.65-.35-1 .22-1.62.15-.15 2.73-2.5 2.78-2.7.01-.03.01-.15-.06-.21-.07-.06-.17-.04-.25-.02-.11.02-1.85 1.17-5.23 3.45-.5.34-.95.51-1.35.5-.44-.01-1.29-.25-1.92-.45-.77-.25-1.39-.39-1.34-.83.03-.23.35-.46.97-.71 3.79-1.65 6.32-2.74 7.59-3.27 3.61-1.5 4.36-1.76 4.85-1.77.11 0 .35.03.51.16.13.11.17.27.19.39-.01.07.01.21 0 .26z" />
               </svg>
               <span>Abrir en Telegram</span>
-            </a>
+            </button>
           </div>
         </aside>
 
@@ -415,6 +416,51 @@ function App() {
           </footer>
         </main>
       </div>
+
+      {/* POPUP PARA ABRIR TELEGRAM */}
+
+      {telegramModalOpen && (
+        <div
+          className="modal-overlay"
+          onClick={() => setTelegramModalOpen(false)}
+        >
+          <div className="telegram-popup" onClick={(e) => e.stopPropagation()}>
+            <h3>¿Cómo preferís abrir Telegram?</h3>
+            <p>Elegí la opción que mejor se adapte a tu dispositivo:</p>
+
+            <div className="popup-actions">
+              {/* Opción 1: Abre directo la App sin pestañas basura */}
+              <a
+                href="tg://resolve?domain=MentiAgentBot"
+                className="popup-btn app-link"
+                onClick={() => setTelegramModalOpen(false)}
+              >
+                🚀 Abrir en la Aplicación
+                <small>Recomendado si tenés la app instalada</small>
+              </a>
+
+              {/* Opción 2: Abre la versión Web en pestaña nueva */}
+              <a
+                href="https://web.telegram.org/k/#@MentiAgentBot"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="popup-btn web-link"
+                onClick={() => setTelegramModalOpen(false)}
+              >
+                🌐 Usar Telegram Web
+                <small>Se abrirá en una nueva pestaña</small>
+              </a>
+            </div>
+
+            <button
+              className="popup-close-btn"
+              onClick={() => setTelegramModalOpen(false)}
+            >
+              Cancelar
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
