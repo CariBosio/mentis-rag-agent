@@ -4,7 +4,7 @@ Asistente virtual autónomo diseñado para la autogestión de información, encu
 <img src="public/Isotipo_Mentis.svg" width="180" alt="Avatar de Menti">
 
 <a href="https://mentis-rag-agent.vercel.app/" target="_blank">
-  <img src="https://img.shields.io/badge/Ver%20Aplicación%20en%20Producción-Mentis-00c853?style=for-the-badge" alt="Despliegue en Vercel">
+  <img src="https://img.shields.io/badge/Ver%20Aplicación%20en%20Producción-Mentis-77d16e?style=for-the-badge" alt="Despliegue en Vercel">
 </a>
 
 ## 🚀 Acerca del Proyecto
