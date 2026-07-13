@@ -4,8 +4,8 @@ Asistente virtual autónomo diseñado para la autogestión de información, encu
 <img src="public/Isotipo_Mentis.svg" width="180" alt="Avatar de Menti">
 
 <a href="https://mentis-rag-agent.vercel.app/" target="_blank">
-    <img src="https://img.shields.io/badge/🚀%20Ver%20Aplicación%20en%20Producción-Mentis-00c853?style=for-the-badge&logo=vercel&logoColor=white" alt="Despliegue en Vercel">
-  </a>
+  <img src="https://img.shields.io/badge/Ver%20Aplicación%20en%20Producción-Mentis-00c853?style=for-the-badge" alt="Despliegue en Vercel">
+</a>
 
 ## 🚀 Acerca del Proyecto
 Mentis nació como un desafío técnico para resolver una necesidad real del ámbito clínico: optimizar la comunicación de normativas, horarios y encuadres psicoterapéuticos con los pacientes. Este proyecto me permitió profundizar la integración de mi formación en **Psicología con el desarrollo Frontend y la Inteligencia Artificial**.
