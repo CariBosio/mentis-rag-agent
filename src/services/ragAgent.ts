@@ -21,17 +21,37 @@ export const searchRelevantContext = async (query: string): Promise<string> => {
       }),
     });
 
+    // 1. Si la respuesta HTTP no es exitosa (ej: 502, 504 o 404)
     if (!response.ok) {
-      throw new Error("No se pudo conectar con el flujo de n8n.");
+      throw new Error(`Error de servidor (${response.status})`);
     }
 
-    const data = await response.json();
+    // 2. Leemos la respuesta primero como texto plano para verificar que no esté vacía
+    const textData = await response.text();
 
+    if (!textData || textData.trim() === "") {
+      throw new Error("El backend devolvió una respuesta vacía.");
+    }
+
+    // 3. Si tiene contenido, recién ahí intentamos transformarlo en JSON de forma segura
+    let data;
+    try {
+      data = JSON.parse(textData);
+    } catch {
+      console.warn(
+        "La respuesta no era un JSON válido. Tratándola como texto plano.",
+      );
+      return textData;
+    }
+
+    // 4. Retornamos el output del JSON si existe
     return (
       data.output || data.response || "No se recibió respuesta del agente."
     );
   } catch (error) {
-    console.error("Error de comunicación backend:", error);
-    return "Disculpame, estoy teniendo un inconveniente para conectar con mi servidor. Por favor, intentá de nuevo en unos instantes.";
+    console.error("⚠️ Error de comunicación backend controlado:", error);
+
+    // Devolvemos un mensaje de error amigable, y dejamos que el flujo continúe sin trabar la interfaz
+    return "Disculpame, en este momento no logré conectar de manera óptima con el servidor. Por favor, intentá reformular tu pregunta o realizala de nuevo en unos instantes.";
   }
 };
