@@ -78,6 +78,20 @@ El ecosistema completo se encuentra productivo, sincronizado en entornos multi-c
 * **Orquestación del Backend (n8n):** Servidor persistente virtualizado de forma exitosa en la infraestructura de la nube a través de **Hugging Face Spaces**.
 * **Base de Datos Vectorial:** Instancia relacional serverless hosteada en **Neon (PostgreSQL)** administrando los índices RAG activos.
 
+## ⚙️ Rendimiento (Capas Gratuitas)
+
+El proyecto está diseñado bajo una arquitectura distribuida para garantizar la modularidad y el desacoplamiento de los servicios. Al operar al 100% sobre **capas gratuitas (Free Tiers)**, el flujo experimenta una latencia de respuesta promedio de entre 7 y 10 segundos por mensaje. 
+
+### 🔄 Circuito de Comunicación por Pregunta:
+1. **Frontend (Vercel):** Envía la consulta del usuario al webhook.
+2. **Backend (Hugging Face Spaces - n8n):** Orquesta el flujo y delega la vectorización.
+3. **Embeddings (Cohere AI):** Transforma el texto en vectores semánticos.
+4. **Base de Datos (Neon Postgres + PGVector):** Realiza la búsqueda de similitud.
+5. **Orquestación de Contexto (n8n):** Inyecta el manual recuperado al LLM.
+6. **Modelo de Lenguaje (Cohere Chat):** Genera la respuesta final adaptada al rol institucional.
+
+💡 **Nota de Ingeniería:** Esta latencia es un comportamiento esperado debido a las limitaciones de ancho de banda, priorización de tráfico y "arranque en frío" (*cold start*) de los proveedores gratuitos utilizados. En un entorno comercial/productivo con recursos dedicados, este circuito se reduce a menos de 1 segundo sin modificar una sola línea de código del proyecto. El Frontend maneja visualmente esta espera mediante un indicador de carga (*typing loader*) para asegurar una UX clara.
+
 ## 📽️ Demo Visual
 
 ### Experiencia de Chat y Animación de Entrada
