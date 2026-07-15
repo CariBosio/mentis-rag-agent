@@ -50,6 +50,7 @@ La solución utiliza una **Cadena de Retorno (Retrieval QA Chain)** orquestada d
 
 ## 📂 Estructura del Repositorio
 
+- `/n8n`: Contiene los flujos lógicos de producción en formato JSON (`Mentis - Chatbot RAG.json` y `Mentis - Inyección de Documentos.json`), listos para ser replicados o importados directamente en cualquier instancia de n8n.
 - `/src`: Código fuente del frontend (Componentes de chat, lógica core de React y estilos).
 - `/src/components`: Componentes aislados como `MentisImagotipo.tsx` (estructura SVG optimizada).
 - `/src/services`: Conectores de API y llamadas al flujo del agente (`ragAgent.ts`).
@@ -139,7 +140,7 @@ _📂 **Ruta del archivo:** `public/img_readme/Web_Mobile.mp4`_
 
 ### 🤖 3. Integración Omnicanal (Telegram Mobile)
 
-> **Enfoque:** Demostración del flujo RAG interactuando en tiempo real a través de Telegram. Se destaca la incorporación del botón nativo permanente **"🌐 Mentis App"** para una transición limpia hacia la web, el formateo HTML de las respuestas y la consistencia del "cerebro" del agente.
+> **Enfoque:** Demostración del flujo RAG interactuando en tiempo real a través de Telegram. Se destaca la incorporación del botón nativo permanente **"Mentis App"** para una transición limpia hacia la web, el formateo HTML de las respuestas y la consistencia del "cerebro" del agente.
 
 <div align="center">
   <div style="max-width: 350px; border: 1px solid #30363d; border-radius: 6px; padding: 10px; background-color: #0d1117;">
