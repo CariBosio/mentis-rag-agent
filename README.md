@@ -114,9 +114,7 @@ Para apreciar la versatilidad de **Mentis** en todos sus canales, se presentan t
 > **Enfoque:** Interfaz responsive optimizada, animaciones fluidas con GSAP/ScrollTrigger, indicadores visuales de estado y una experiencia de usuario (UX) sumamente cuidada para pantallas grandes.
 
 <p align="center">
-  <kbd>
-    <video src="public/img_readme/Web_Desktop.mp4" width="100%" controls></video>    
-  </kbd>
+  <video src="https://raw.githubusercontent.com/CariBosio/mentis-rag-agent/main/public/img_readme/Web_Desktop.mp4" width="900" controls></video>
 </p>
 
 _📂 **Ruta del archivo:** `public/img_readme/Web_Desktop.mp4`_
