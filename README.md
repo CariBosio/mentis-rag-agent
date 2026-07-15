@@ -141,11 +141,11 @@ _📂 **Ruta del archivo:** `public/img_readme/Web_Mobile.mp4`_
 
 > **Enfoque:** Demostración del flujo RAG interactuando en tiempo real a través de Telegram. Se destaca la incorporación del botón nativo permanente **"🌐 Mentis App"** para una transición limpia hacia la web, el formateo HTML de las respuestas y la consistencia del "cerebro" del agente.
 
-<p align="center">
-  <kbd>
-    <video src="https://github.com/user-attachments/assets/c653dddc-3511-47c8-90c5-fb811f5b1aaa" width="350px" controls></video>
-  </kbd>
-</p>
+<div align="center">
+  <div style="max-width: 350px; border: 1px solid #30363d; border-radius: 6px; padding: 10px; background-color: #0d1117;">
+    <video src="https://github.com/user-attachments/assets/369c6e3b-f230-4e0f-b041-cfb3dcd8517f" width="100%" controls style="border-radius: 4px; display: block;"></video>
+  </div>
+</div>
 
 _📂 **Ruta del archivo:** `public/img_readme/Telegram_Execution.mp4`_
 
