@@ -127,11 +127,11 @@ _📂 **Ruta del archivo:** `public/img_readme/Web_Desktop.mp4`_
 
 > **Enfoque:** Diseño _mobile-first_ altamente interactivo. El menú lateral colapsable, la caja de chat adaptada a pantallas táctiles y la perfecta preservación de la identidad visual de la marca en dispositivos móviles.
 
-<p align="center">
-  <kbd>
-    <video src="https://github.com/user-attachments/assets/c653dddc-3511-47c8-90c5-fb811f5b1aaa" width="350px" controls></video>
-  </kbd>
-</p>
+<div align="center">
+  <div style="max-width: 350px; border: 1px solid #30363d; border-radius: 6px; padding: 10px; background-color: #0d1117;">
+    <video src="https://github.com/user-attachments/assets/369c6e3b-f230-4e0f-b041-cfb3dcd8517f" width="100%" controls style="border-radius: 4px; display: block;"></video>
+  </div>
+</div>
 
 _📂 **Ruta del archivo:** `public/img_readme/Web_Mobile.mp4`_
 
@@ -143,7 +143,7 @@ _📂 **Ruta del archivo:** `public/img_readme/Web_Mobile.mp4`_
 
 <div align="center">
   <div style="max-width: 350px; border: 1px solid #30363d; border-radius: 6px; padding: 10px; background-color: #0d1117;">
-    <video src="https://github.com/user-attachments/assets/369c6e3b-f230-4e0f-b041-cfb3dcd8517f" width="100%" controls style="border-radius: 4px; display: block;"></video>
+    <video src="https://github.com/user-attachments/assets/c653dddc-3511-47c8-90c5-fb811f5b1aaa" width="100%" controls style="border-radius: 4px; display: block;"></video>
   </div>
 </div>
 
