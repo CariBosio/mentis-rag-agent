@@ -143,7 +143,7 @@ _📂 **Ruta del archivo:** `public/img_readme/Web_Mobile.mp4`_
 
 <p align="center">
   <kbd>
-    <video src="public/img_readme/Telegram_Execution.mp4" width="350px" controls></video>
+    <video src="https://github.com/user-attachments/assets/c653dddc-3511-47c8-90c5-fb811f5b1aaa" width="350px" controls></video>
   </kbd>
 </p>
 
