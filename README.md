@@ -1,5 +1,9 @@
 # Mentis: Agente Clínico Inteligente RAG
 
+<div align="center">
+  <img src="public/img_readme/badge-rag-agente-ia.png" alt="Badge Challenge Alura Agente" width="180">
+</div>
+
 Asistente virtual autónomo diseñado para la autogestión de información, encuadre y políticas del consultorio psicológico de la **Lic. Carina Bosio**.
 
 <img src="public/img_readme/Isotipo_Mentis.svg" width="180" alt="Avatar de Menti">
