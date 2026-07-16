@@ -4,7 +4,11 @@ Asistente virtual autónomo diseñado para la autogestión de información, encu
 
 <img src="public/img_readme/Isotipo_Mentis.svg" width="180" alt="Avatar de Menti">
 
-[![Ver Aplicación en Producción](https://img.shields.io/badge/Ver%20Aplicación%20en%20Producción-Mentis-77d16e?style=for-the-badge)](https://mentis-rag-agent.vercel.app/)
+- **🌐 Enlace de acceso directo:** 
+  
+  [![Ver Aplicación en Producción](https://img.shields.io/badge/Ver%20Aplicación%20en%20Producción-Mentis-77d16e?style=for-the-badge)](https://mentis-rag-agent.vercel.app/) ↗️
+  
+  *(Se recomienda hacer **Ctrl + Clic** o **Clic derecho > Abrir en una pestaña nueva** para no perder esta página).*
 
 ## 🚀 Acerca del Proyecto
 
