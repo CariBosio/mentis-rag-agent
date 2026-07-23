@@ -60,7 +60,7 @@ La solución utiliza una **Cadena de Retorno (Retrieval QA Chain)** orquestada d
 - `/src`: Código fuente del frontend (Componentes de chat, lógica core de React y estilos).
 - `/src/components`: Componentes aislados como `MentisImagotipo.tsx` (estructura SVG optimizada).
 - `/src/services`: Conectores de API y llamadas al flujo del agente (`ragAgent.ts`).
-- `/public/docs`: Base de conocimientos que alimenta el RAG (`politicas_mentis.txt`, manuales PDF).
+- `/public/docs`: Base de conocimientos que alimenta el RAG (`politicas_mentis.txt`, manuales PDF, preguntas frecuentes).
 
 ## 💡 Desafíos Técnicos
 
